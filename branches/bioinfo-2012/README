@@ -1,0 +1,6 @@
+This SVN directory contains all the source code and required data to run the Pseudoisomeric Reactant Contribution (PRC) and Pseudoisomeric Group Contribution (PGC) methods, as published in Bioinformatics (2012).
+
+In order to checkout the code using subversion, run the following command:
+svn checkout http://milo-lab.googlecode.com/svn/branches/bioinfo-2012/ milo-lab-bioinfo-2012
+
+You can find more information at http://code.google.com/p/milo-lab/, including more recent versions of our software and other related projects.
