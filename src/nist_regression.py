@@ -449,7 +449,7 @@ class NistRegression(PsuedoisomerTableThermodynamics):
         
         self.html_writer.write('</table>\n')
 
-    def Calculate_pKa_and_pKMg(self, filename="../data/thermodynamics/dG0.csv"):
+    def Calculate_pKa_and_pKMg(self, filename="../data/dG0.csv"):
         kegg = Kegg.getInstance()
         cid2pmap = {}
         smiles_dict = {}
@@ -561,18 +561,6 @@ def main():
     db = SqliteDatabase(db_loc)
     nist_regression = NistRegression(db, html_writer=html_writer)
     nist_regression.std_diff_threshold = 2.0 # the threshold over which to print an analysis of a reaction
-    #nist_regression.nist.T_range = None(273.15 + 24, 273.15 + 40)
-    #nist_regression.nist.override_I = 0.25
-    #nist_regression.nist.override_pMg = 14.0
-
-    #nist_anchors = PsuedoisomerTableThermodynamics.FromCsvFile(
-    #    '../data/thermodynamics/nist_anchors.csv')
-    #
-    #S, dG0, cids = nist_regression.ReverseTransform(nist_anchors)
-
-    # copy the Alberty values from the public DB to the local DB
-    #db_public = SqliteDatabase(public_db_loc)
-    #alberty = PsuedoisomerTableThermodynamics.FromDatabase(db_public, 'alberty_pseudoisomers')
 
     html_writer.write("<h2>NIST regression:</h2>")
     
