@@ -2,7 +2,6 @@ import sqlite3, csv
 import os
 import types
 import logging
-import pymysql
 
 class Database(object):
     """Abstract base Database class."""
@@ -177,46 +176,4 @@ class SqliteDatabase(SQLDatabase):
     def __str__(self):
         return '<SqliteDatabase: %s>' % self.filename
 
-class MySQLDatabase(SQLDatabase):
-    """
-        To grant privileges to more users and IP addresses use the following command:
-            GRANT ALL PRIVILEGES ON *.* TO <remoteuser>@'%' IDENTIFIED BY "<userpassword>";
-        
-    """
-    
-    def __init__(self, host, user, passwd, db, port=3306):
-        self.comm = pymysql.connect(host=host, user=user, passwd=passwd, db=db,
-                                    port=port)
-        
-    def Execute(self, command, arguments=None):
-        try:
-            cursor = self.comm.cursor()
-            cursor.execute(command, args=arguments)
-            return cursor.fetchall()
-        except (pymysql.ProgrammingError, pymysql.OperationalError) as e:
-            if not arguments:
-                logging.error('Failed to execute database command: %s' % command)
-            else:
-                logging.error('Failed to execute database command: %s - %s' % \
-                              (command, str(arguments)))
-            raise e
 
-    def Insert(self, table_name, list):
-        sql_command = "INSERT INTO %s VALUES(%s)" % (table_name, 
-                            ','.join(["'" + str(x) + "'" for x in list]))
-        return self.Execute(sql_command)
-        
-    def Commit(self):
-        self.comm.commit()
-        
-    def __del__(self):
-        self.comm.commit()
-        self.comm.close()
-        
-    def __str__(self):
-        return '<MySQLDatabase: %s>' % self.filename
-
-    def DoesTableExist(self, table_name):
-        for unused_row in self.Execute("SELECT name FROM sqlite_master WHERE name='%s'" % table_name):
-            return True
-        return False
