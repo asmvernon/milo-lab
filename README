@@ -7,3 +7,12 @@ svn checkout http://milo-lab.googlecode.com/svn/branches/bioinfo-2012/ milo-lab-
 
 You can find more information at http://code.google.com/p/milo-lab/, including
 more recent versions of our software and other related projects.
+
+
+Required dependencies for running the code:
+- Python 2.7
+- Scipy 0.9.0
+- Open Babel 2.3.0
+- Sqlite3 2.6.0
+- Indigo Python API 1.0 (http://ggasoftware.com/)
+
